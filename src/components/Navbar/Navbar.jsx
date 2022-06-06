@@ -1,15 +1,26 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 // use react-router Link or NavLink
-const Link = <a />;
-
+import styled from "styled-components"
+import { AuthContext } from "../../context/AuthContext";
+const Div =styled.div`
+display:flex;
+gap:20px;
+justify-content:center;
+font-size:20px;
+`
 const Navbar = () => {
+  const {isAuth}=useContext(AuthContext);
+  const Navigate=useNavigate();
+  const login=()=>{
+    Navigate("/login")
+  }
   return (
-    <div data-cy="navbar">
-      <Link data-cy="navbar-home-link"></Link>
-      <span data-cy="navbar-cart-items-count">{/* count here */}</span>
-      <button data-cy="navbar-login-logout-button"></button>
-    </div>
+    <Div data-cy="navbar">
+      <Link data-cy="navbar-home-link" to="/home">Home</Link>
+      <span data-cy="navbar-cart-items-count">Cart Count</span>
+      <button data-cy="navbar-login-logout-button" onClick={login}>{isAuth ?"Logut":"Login"}</button>
+    </Div>
   );
 };
 
